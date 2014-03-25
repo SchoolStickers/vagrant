@@ -1,118 +1,89 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+# Config Github Settings
+github_username = "SchoolStickers"
+github_repo     = "vagrant"
+github_tag      = "1"
+# github_path    = "https://raw.github.com/#{github_username}/#{github_repo}/#{github_branch}/"
+github_path     = ""
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
+# Server Configuration
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "centos-65-x64-virtualbox-puppet"
+# Set a local private network IP address.
+# See http://en.wikipedia.org/wiki/Private_network for explanation
+# You can use the following IP ranges:
+#   10.0.0.1    - 10.255.255.254
+#   172.16.0.1  - 172.31.255.254
+#   192.168.0.1 - 192.168.255.254
+server_ip             = "192.168.33.10"
+server_memory         = "1024" # MB
+server_timezone       = "UTC"
 
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-puppet.box"
+# Database Configuration
+mariadb_version       = "5.1"
+mariadb_root_password = "root"
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+# Languages and Packages
+ruby_version          = "latest" # Choose what ruby version should be installed (will also be the default version)
+ruby_gems             = [        # List any Ruby Gems that you want to install
+  #"jekyll",
+  #"sass",
+  #"compass",
+  #"bundler",
+]
+php_version           = "5.4" # Options: latest|previous|distributed   For 12.04. latest=5.5, previous=5.4, distributed=5.3
+composer_packages     = [        # List any global Composer packages that you want to install
+  #"phpunit/phpunit:4.0.*",
+  #"codeception/codeception=*",
+  #"phpspec/phpspec:2.0.*@dev",
+]
+nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
+nodejs_packages       = [          # List any global NodeJS packages that you want to install
+  #"grunt-cli",
+  #"gulp",
+  #"bower",
+  #"yo",
+]
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+# Lets do this
+Vagrant.configure(2) do |config|
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+  # Which box are we using?
+  config.vm.box = "centos-65-x64-virtualbox-nocm"
+  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-nocm.box"
 
-  # If true, then any SSH connections made will enable agent forwarding.
-  # Default value: false
-  # config.ssh.forward_agent = true
+  # Network settings
+  config.vm.hostname = "vagrant"
+  config.vm.network "private_network", ip: server_ip
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  # Port forwarding
+  config.vm.network "forwarded_port", guest: 35729, host: 35729 #LiveReload
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Don't boot with headless mode
-  #   vb.gui = true
-  #
-  #   # Use VBoxManage to customize the VM. For example to change memory:
-  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  # end
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
+  # Folder sharing
+  config.vm.synced_folder ".", "/vagrant"
 
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # the file base.pp in the manifests_path directory.
-  #
-  # An example Puppet manifest to provision the message of the day:
-  #
-  # # group { "puppet":
-  # #   ensure => "present",
-  # # }
-  # #
-  # # File { owner => 0, group => 0, mode => 0644 }
-  # #
-  # # file { '/etc/motd':
-  # #   content => "Welcome to your Vagrant-built virtual machine!
-  # #               Managed by Puppet.\n"
-  # # }
-  #
-  # config.vm.provision "puppet" do |puppet|
-  #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "site.pp"
-  # end
+  # Vitualbox settings
+  config.vm.provider "virtualbox" do |vb|
 
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding
-  # some recipes and/or roles.
-  #
-  # config.vm.provision "chef_solo" do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { :mysql_password => "foo" }
-  # end
+    # Set memory
+    vb.customize ["modifyvm", :id, "--memory", server_memory]
 
-  # Enable provisioning with chef server, specifying the chef server URL,
-  # and the path to the validation key (relative to this Vagrantfile).
-  #
-  # The Opscode Platform uses HTTPS. Substitute your organization for
-  # ORGNAME in the URL and validation key.
-  #
-  # If you have your own Chef Server, use the appropriate URL, which may be
-  # HTTP instead of HTTPS depending on your configuration. Also change the
-  # validation key to validation.pem.
-  #
-  # config.vm.provision "chef_client" do |chef|
-  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
-  #   chef.validation_key_path = "ORGNAME-validator.pem"
-  # end
-  #
-  # If you're using the Opscode platform, your validator client is
-  # ORGNAME-validator, replacing ORGNAME with your organization name.
-  #
-  # If you have your own Chef Server, the default validation client name is
-  # chef-validator, unless you changed the configuration.
-  #
-  #   chef.validation_client_name = "ORGNAME-validator"
+    # Set the timesync threshold to 10 seconds, instead of the default 20 minutes.
+    # If the clock gets more than 15 minutes out of sync (due to your laptop going
+    # to sleep for instance, then some 3rd party services will reject requests.
+    vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
+
+  end
+
+  ####
+  # Base Items
+  ##########
+
+  # Provision Base Packages
+  config.vm.provision "shell", path: "#{github_path}scripts/base.sh"
+
+  # Provision PHP
+  config.vm.provision "shell", path: "#{github_path}scripts/php54.sh"
+
 end
