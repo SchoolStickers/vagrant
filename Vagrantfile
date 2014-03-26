@@ -94,4 +94,7 @@ Vagrant.configure(2) do |config|
   # Provision MariaDB
   config.vm.provision "shell", path: "#{github_path}scripts/mariadb55.sh"
 
+  # Install Nodejs
+  config.vm.provision "shell", path: "#{github_path}scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
+  
 end
