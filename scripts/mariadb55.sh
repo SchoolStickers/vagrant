@@ -2,8 +2,9 @@
 
 # Taken from https://mariadb.com/kb/en/installing-mariadb-with-yum/
 
-echo ">>> Adding MariaDB repo"
-# xdebug Config
+echo ">>> Installing MariaDB"
+
+# Adding Yum repo
 cat > /etc/yum.repos.d/MariaDB.repo << EOF
 # MariaDB 5.5 CentOS repository list - created 2014-03-26 10:34 UTC
 # http://mariadb.org/mariadb/repositories/
@@ -14,8 +15,8 @@ gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
 
-echo ">>> Installing MariaDB"
+# Installing MariaDB
 sudo yum install -y MariaDB-server MariaDB-client
 
-echo ">>> Starting MariaDB"
+# Starting MariaDB
 sudo /etc/init.d/mysql start

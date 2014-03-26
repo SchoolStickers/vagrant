@@ -3,10 +3,10 @@
 # Taken from http://webtatic.com/packages/php54/
 
 echo ">>> Installing PHP 5.4"
+
 sudo rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm
 sudo yum install -y php54w php54w-common php54w-pecl-xdebug
 
-echo ">>> Configuring xdebug"
 # xdebug Config
 cat >> $(find /etc/php.d -name xdebug.ini) << EOF
 xdebug.remote_enable = 1
