@@ -3,6 +3,7 @@
 echo ">>> Installing Base Packages"
 
 # Install base packages
+sudo yum update -y
 sudo yum install -y git-core vim curl wget
 
 echo ">>> Installing *.xip.io self-signed SSL"

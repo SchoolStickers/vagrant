@@ -76,9 +76,11 @@ Vagrant.configure(2) do |config|
 
   end
 
-  ####
-  # Base Items
-  ##########
+  # Configure cached packages to be shared between instances of the same base box.
+  # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
 
   # Provision Base Packages
   config.vm.provision "shell", path: "#{github_path}scripts/base.sh"
