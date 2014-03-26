@@ -85,8 +85,11 @@ Vagrant.configure(2) do |config|
   # Provision Base Packages
   config.vm.provision "shell", path: "#{github_path}scripts/base.sh"
 
-  # Provision PHP
+  # Provision PHP 5.4
   config.vm.provision "shell", path: "#{github_path}scripts/php54.sh"
+
+  # Provision Nginx
+  config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh"
 
   # Provision MariaDB
   config.vm.provision "shell", path: "#{github_path}scripts/mariadb55.sh"

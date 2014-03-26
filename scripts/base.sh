@@ -2,6 +2,9 @@
 
 echo ">>> Installing Base Packages"
 
+# Add EPEL repo
+sudo su -c 'rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm'
+
 # Install base packages
 sudo yum update -y
 sudo yum install -y git-core vim curl wget
