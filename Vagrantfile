@@ -86,4 +86,7 @@ Vagrant.configure(2) do |config|
   # Provision PHP
   config.vm.provision "shell", path: "#{github_path}scripts/php54.sh"
 
+  # Provision MariaDB
+  config.vm.provision "shell", path: "#{github_path}scripts/mariadb55.sh"
+
 end
