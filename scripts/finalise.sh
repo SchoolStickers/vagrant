@@ -9,6 +9,9 @@ sudo updatedb
 wget -P /home/vagrant https://raw.githubusercontent.com/SchoolStickers/vagrant/master/dotfiles/.gitconfig
 wget -P /home/vagrant https://raw.githubusercontent.com/SchoolStickers/vagrant/master/dotfiles/.bash_aliases
 
+# Add .bash_aliases to .bash_profile
+printf "\n\n# source .bash_aliases \n. .bash_aliases" >> /home/vagrant/.bash_profile
+
 # Tell everyone the job is finished
 cat << EOF
 
