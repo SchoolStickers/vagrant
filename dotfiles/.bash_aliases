@@ -44,11 +44,24 @@ export PS1='\n\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yell
 
 alias ls='ls -F --color=always'
 alias dir='dir -F --color=always'
-#alias ll='ls -l'
+alias ll='ls -ahl'
 alias cp='cp -iv'
 alias rm='rm -i'
 alias mv='mv -iv'
 alias grep='grep --color=auto -in'
-alias ..='cd ..'
 
-alias ll='ls -ahl'
+# Taken from http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+
+## get rid of command not found ##
+alias cd..='cd ..'
+
+## a quick way to get out of current directory ##
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+
+## Resume wget by default
+alias wget='wget -c'
