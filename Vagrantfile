@@ -86,6 +86,9 @@ Vagrant.configure(2) do |config|
   # Install RabbitMQ
   config.vm.provision "shell", path: "#{github_path}scripts/rabbitmq.sh"
 
+  # Install Memcached
+  config.vm.provision "shell", path: "#{github_path}scripts/memcached.sh"
+
   # Finalise install
   config.vm.provision "shell", path: "#{github_path}scripts/finalise.sh", privileged: false
 
