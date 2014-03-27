@@ -26,10 +26,7 @@ mariadb_root_password = "root"
 
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
-  #"grunt-cli",
-  #"gulp",
-  #"bower",
-  #"yo",
+  "phantomjs",
 ]
 
 # Lets do this
@@ -85,6 +82,9 @@ Vagrant.configure(2) do |config|
 
   # Install Varnish
   config.vm.provision "shell", path: "#{github_path}scripts/varnish.sh"
+
+  # Install RabbitMQ
+  config.vm.provision "shell", path: "#{github_path}scripts/rabbitmq.sh"
 
   # Finalise install
   config.vm.provision "shell", path: "#{github_path}scripts/finalise.sh", privileged: false
