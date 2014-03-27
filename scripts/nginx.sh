@@ -25,7 +25,7 @@ cat > /etc/nginx/conf.d/default.conf << EOF
 server {
     listen 80;
 
-    root /vagrant;
+    root /vagrant/public_html;
     index index.html index.htm index.php app.php app_dev.php;
 
     # Make site accessible from http://set-ip-address.xip.io
@@ -51,7 +51,7 @@ server {
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         # With php5-fpm:
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_pass 127.0.0.1:9000;
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
@@ -72,7 +72,7 @@ server {
     ssl_certificate     /etc/ssl/xip.io/xip.io.crt;
     ssl_certificate_key /etc/ssl/xip.io/xip.io.key;
 
-    root /vagrant;
+    root /vagrant/public_html;
     index index.html index.htm index.php app.php app_dev.php;
 
     # Make site accessible from http://set-ip-address.xip.io
@@ -98,7 +98,7 @@ server {
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         # With php5-fpm:
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_pass 127.0.0.1:9000;
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
@@ -116,3 +116,5 @@ EOF
 # Starting Nginx
 sudo /etc/init.d/nginx start
 sudo /etc/init.d/php-fpm restart
+
+sudo chkconfig --levels 235 nginx on

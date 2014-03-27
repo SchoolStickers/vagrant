@@ -26,3 +26,8 @@ EOF
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php.ini
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php.ini
 sed -i "s/html_errors = .*/display_errors = On/" /etc/php.ini
+
+# Starting PHP-FPM
+sudo /etc/init.d/php-fpm start
+
+sudo chkconfig --levels 235 php-fpm on
