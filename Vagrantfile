@@ -71,14 +71,17 @@ Vagrant.configure(2) do |config|
   # Provision PHP 5.4
   config.vm.provision "shell", path: "#{github_path}scripts/php54.sh"
 
+  # Install Nodejs
+  config.vm.provision "shell", path: "#{github_path}scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
+
+  # Install RVM
+  config.vm.provision "shell", path: "#{github_path}scripts/rvm.sh", privileged: false
+
   # Provision Nginx
   config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh", args: server_ip
 
   # Provision MariaDB
   config.vm.provision "shell", path: "#{github_path}scripts/mariadb55.sh"
-
-  # Install Nodejs
-  config.vm.provision "shell", path: "#{github_path}scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
 
   # Install Varnish
   config.vm.provision "shell", path: "#{github_path}scripts/varnish.sh"
