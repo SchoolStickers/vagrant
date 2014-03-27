@@ -9,6 +9,9 @@ sudo updatedb
 wget -P /home/vagrant https://raw.githubusercontent.com/SchoolStickers/vagrant/master/dotfiles/.gitconfig
 wget -P /home/vagrant https://raw.githubusercontent.com/SchoolStickers/vagrant/master/dotfiles/.bash_aliases
 
+# Add support for bash_completion
+printf "\n\n# Add support for bash_completion \n. /etc/bash_completion.d/git" >> /home/vagrant/.bash_profile
+
 # Add .bash_aliases to .bash_profile
 printf "\n\n# source .bash_aliases \n. .bash_aliases" >> /home/vagrant/.bash_profile
 
