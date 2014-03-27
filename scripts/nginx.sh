@@ -23,7 +23,7 @@ echo ">>> Configuring Nginx"
 # is not escaped
 cat > /etc/nginx/conf.d/default.conf << EOF
 server {
-    listen 80;
+    listen 5580;
 
     root /vagrant/public_html;
     index index.html index.htm index.php app.php app_dev.php;

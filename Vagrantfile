@@ -83,6 +83,9 @@ Vagrant.configure(2) do |config|
   # Install Nodejs
   config.vm.provision "shell", path: "#{github_path}scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
 
+  # Install Varnish
+  config.vm.provision "shell", path: "#{github_path}scripts/varnish.sh"
+
   # Finalise install
   config.vm.provision "shell", path: "#{github_path}scripts/finalise.sh", privileged: false
 
