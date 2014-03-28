@@ -19,7 +19,6 @@ sudo yum install -y nginx
 echo ">>> Configuring Nginx"
 
 # Configure Nginx
-# Note the .xip.io IP address $1 variable
 # is not escaped
 cat > /etc/nginx/conf.d/default.conf << EOF
 server {
