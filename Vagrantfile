@@ -4,7 +4,7 @@
 # Config Github Settings
 github_username = "SchoolStickers"
 github_repo     = "vagrant"
-github_tag      = "0.2"
+github_tag      = "0.3"
 github_path     = "https://raw.github.com/#{github_username}/#{github_repo}/#{github_tag}/"
 
 # Server Configuration
@@ -18,6 +18,8 @@ github_path     = "https://raw.github.com/#{github_username}/#{github_repo}/#{gi
 server_ip             = "192.168.33.10"
 server_memory         = "1024" # MB
 server_timezone       = "UTC"
+
+default_domain        = "domain.com"
 
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
@@ -73,7 +75,7 @@ Vagrant.configure(2) do |config|
   # config.vm.provision "shell", path: "#{github_path}scripts/rvm.sh", privileged: false
 
   # Provision Nginx
-  config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh", args: server_ip
+  config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh", args: [server_ip, default_domain]
 
   # Provision MariaDB
   config.vm.provision "shell", path: "#{github_path}scripts/mariadb55.sh"
