@@ -20,3 +20,12 @@ sudo yum install -y MariaDB-server MariaDB-client
 
 # Starting MariaDB
 sudo /etc/init.d/mysql start
+
+sudo chkconfig --levels 235 mysql on
+
+# Import your sql-dump, if one exists
+FILE="sql/import.sql"
+if [ -f $FILE ]; then
+	echo ">>> Importing your database"
+    mysql -u root < $FILE
+fi
