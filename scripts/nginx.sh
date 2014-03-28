@@ -31,8 +31,8 @@ server {
     # Make site accessible from http://set-ip-address.xip.io
     server_name $1.xip.io;
 
-    access_log /vagrant/logs/access.log;
-    error_log  /vagrant/logs/error.log error;
+    access_log /vagrant/log/access.log;
+    error_log  /vagrant/log/error.log error;
 
     charset utf-8;
 
@@ -78,8 +78,8 @@ server {
     # Make site accessible from http://set-ip-address.xip.io
     server_name $1.xip.io;
 
-    access_log /vagrant/logs/access.log;
-    error_log  /vagrant/logs/error.log error;
+    access_log /vagrant/log/access.log;
+    error_log  /vagrant/log/error.log error;
 
     charset utf-8;
 
