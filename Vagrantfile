@@ -19,10 +19,6 @@ server_ip             = "192.168.33.10"
 server_memory         = "1024" # MB
 server_timezone       = "UTC"
 
-# Database Configuration
-mariadb_version       = "5.1"
-mariadb_root_password = "root"
-
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
   "phantomjs",
