@@ -5,7 +5,7 @@
 github_username = "SchoolStickers"
 github_repo     = "vagrant"
 github_tag      = "0.1"
-github_path    = "https://raw.github.com/#{github_username}/#{github_repo}/blob/#{github_tag}/"
+github_path    = "https://raw.github.com/#{github_username}/#{github_repo}/#{github_tag}/"
 
 # Server Configuration
 
