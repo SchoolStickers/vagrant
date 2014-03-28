@@ -21,4 +21,6 @@ Instead, we recommend you use [Vaprobash](https://github.com/fideloper/Vaprobash
 4. Go have a coffee while it's provisioning.
 
 ## To do
+* Add MailCatcher.
 * Provide the ability to set-up multiple vhosts.
+* Fix RVM.
