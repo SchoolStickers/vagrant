@@ -24,7 +24,7 @@ sudo /etc/init.d/mysql start
 sudo chkconfig --levels 235 mysql on
 
 # Import your sql-dump, if one exists
-FILE="/vagrant/sql/import.sql"
+FILE="/vagrant/import.sql"
 if [ -f $FILE ]; then
 	echo ">>> Importing your database"
     mysql -u root < $FILE

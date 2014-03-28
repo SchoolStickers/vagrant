@@ -16,7 +16,7 @@ Instead, we recommend you use [Vaprobash](https://github.com/fideloper/Vaprobash
 2. Ensure the following files/folders exist in the root of your project:
  * `public_html/` served by nginx.
  * `log/` used for log files.
- * `sql/import.sql` SQL dump for any databases you need *(optional)*.
+ * `import.sql` SQL dump for any databases you need *(optional)*.
 3. Run `vagrant up` from the root of your project.
 4. Go have a coffee while it's provisioning.
 
