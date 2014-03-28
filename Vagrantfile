@@ -4,9 +4,8 @@
 # Config Github Settings
 github_username = "SchoolStickers"
 github_repo     = "vagrant"
-github_tag      = "1"
-# github_path    = "https://raw.github.com/#{github_username}/#{github_repo}/#{github_branch}/"
-github_path     = ""
+github_tag      = "0.1"
+github_path    = "https://raw.github.com/#{github_username}/#{github_repo}/blob/#{github_tag}/"
 
 # Server Configuration
 
@@ -75,7 +74,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "#{github_path}scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
 
   # Install RVM
-  config.vm.provision "shell", path: "#{github_path}scripts/rvm.sh", privileged: false
+  # config.vm.provision "shell", path: "#{github_path}scripts/rvm.sh", privileged: false
 
   # Provision Nginx
   config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh", args: server_ip
