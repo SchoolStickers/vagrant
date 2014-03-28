@@ -20,7 +20,23 @@ Instead, we recommend you use [Vaprobash](https://github.com/fideloper/Vaprobash
 3. Run `vagrant up` from the root of your project.
 4. Go have a coffee while it's provisioning.
 
-## To do
-* Add MailCatcher.
+## Settings
+* Base:
+ * IP address: `192.168.33.10`.
+ * URL: [`192.168.33.10.xip.io`](http://192.168.33.10.xip.io/)
+* Nginx:
+ * HTTP port: `5580`.
+ * HTTPS port: `443` .
+* Varnish:
+ * HTTP port: `80`.
+ * Forwarding to: `5580`.
+* MySQL/MariaDB:
+ * Username: `root`.
+ * Password: *no password*.
+ * Database: *The import.sql script needs to create the required databases*.
+
+## Todo
+* Allow config of the above settings via the `Vagrantfile`. 
+* Install MailCatcher.
 * Provide the ability to set-up multiple vhosts.
-* Fix RVM.
+* Fix RVM (RVM installs fine, and downloads Ruby 2.1, but doesn't `use` 2.1)
