@@ -65,3 +65,6 @@ alias .5='cd ../../../../..'
 
 ## Resume wget by default
 alias wget='wget -c'
+
+## replaces `sudo !!` - http://www.reddit.com/r/linux/comments/1d5m1c/i_get_bored_with_typing_sudo_all_the_time_this/
+alias please='sudo $(history -p !-1)'

@@ -18,8 +18,7 @@ sudo yum install -y nginx
 
 echo ">>> Configuring Nginx"
 
-# Configure Nginx
-# is not escaped
+# Configure default vhost
 cat > /etc/nginx/conf.d/default.conf << EOF
 server {
     listen 5580;
@@ -28,7 +27,7 @@ server {
     index index.html index.htm index.php app.php app_dev.php;
 
     # Make site accessible
-    server_name .$1.xip.io;
+    server_name $1.xip.io;
 
     access_log /vagrant/log/access.log;
     error_log  /vagrant/log/error.log error;
@@ -54,7 +53,6 @@ server {
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-        fastcgi_param LARA_ENV local; # Environment variable for Laravel
         fastcgi_param HTTPS off;
     }
 
@@ -75,7 +73,7 @@ server {
     index index.html index.htm index.php app.php app_dev.php;
 
     # Make site accessible
-    server_name .$1.xip.io;
+    server_name $1.xip.io;
 
     access_log /vagrant/log/access.log;
     error_log  /vagrant/log/error.log error;
@@ -101,7 +99,6 @@ server {
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-        fastcgi_param LARA_ENV local; # Environment variable for Laravel
         fastcgi_param HTTPS on;
     }
 
@@ -111,6 +108,13 @@ server {
     }
 }
 EOF
+
+# check for additional vhosts
+DIRECTORY="/vagrant/vhosts"
+if [ -d $DIRECTORY ]; then
+	echo ">>> Importing your vhosts"
+    cp $DIRECTORY/. /etc/nginx/conf.d -R
+fi
 
 # Starting Nginx
 sudo /etc/init.d/nginx start

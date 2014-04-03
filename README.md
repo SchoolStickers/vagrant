@@ -17,6 +17,7 @@ Instead, we recommend you use [Vaprobash](https://github.com/fideloper/Vaprobash
  * `public_html/` served by nginx.
  * `log/` used for log files.
  * `import.sql` SQL dump for any databases you need *(optional)*.
+ * `vhosts/*` any custom vhosts you want your box to use *(optional)*.
 3. Run `vagrant up` from the root of your project.
 4. Go have a coffee while it's provisioning.
 
@@ -36,7 +37,7 @@ Instead, we recommend you use [Vaprobash](https://github.com/fideloper/Vaprobash
  * Database: *The import.sql script needs to create the required databases*.
 
 ## Todo
-* Allow config of the above settings via the `Vagrantfile`. 
+* Allow config of the above settings via the `Vagrantfile`.
 * Install MailCatcher.
 * Provide the ability to set-up multiple vhosts.
 * Fix RVM (RVM installs fine, and downloads Ruby 2.1, but doesn't `use` 2.1)
