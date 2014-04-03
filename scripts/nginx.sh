@@ -18,7 +18,7 @@ sudo yum install -y nginx
 
 echo ">>> Configuring Nginx"
 
-# Configure default vhost
+# Configure default vhost (is not escaped)
 cat > /etc/nginx/conf.d/default.conf << EOF
 server {
     listen 5580;
