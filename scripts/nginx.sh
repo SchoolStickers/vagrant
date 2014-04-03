@@ -3,7 +3,6 @@
 echo ">>> Installing Nginx"
 
 [[ -z "$1" ]] && { echo "!!! IP address not set. Check the Vagrant file."; exit 1; }
-[[ -z "$2" ]] && { echo "!!! Domain not set. Check the Vagrant file."; exit 1; }
 
 # Adding Yum repo
 cat > /etc/yum.repos.d/nginx.repo << EOF
@@ -28,8 +27,8 @@ server {
     root /vagrant/public_html;
     index index.html index.htm index.php app.php app_dev.php;
 
-    # Make site accessible from http://set-ip-address.xip.io
-    server_name $2.$1.xip.io;
+    # Make site accessible
+    server_name .$1.xip.io;
 
     access_log /vagrant/log/access.log;
     error_log  /vagrant/log/error.log error;
@@ -75,8 +74,8 @@ server {
     root /vagrant/public_html;
     index index.html index.htm index.php app.php app_dev.php;
 
-    # Make site accessible from http://set-ip-address.xip.io
-    server_name $2.$1.xip.io;
+    # Make site accessible
+    server_name .$1.xip.io;
 
     access_log /vagrant/log/access.log;
     error_log  /vagrant/log/error.log error;
