@@ -15,13 +15,15 @@ github_path     = "https://raw.github.com/#{github_username}/#{github_repo}/#{gi
 #   10.0.0.1    - 10.255.255.254
 #   172.16.0.1  - 172.31.255.254
 #   192.168.0.1 - 192.168.255.254
-server_ip             = "192.168.33.10"
-server_memory         = "1024" # MB
-server_timezone       = "UTC"
+server_ip              = "192.168.33.10"
+server_memory          = "4096" # MB
+server_timezone        = "UTC"
+server_cpuexecutioncap = "90"
+server_cpus            = 4
 
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
-  "phantomjs",
+#  "phantomjs",
 ]
 
 # Lets do this
@@ -46,6 +48,10 @@ Vagrant.configure(2) do |config|
 
     # Set memory
     vb.customize ["modifyvm", :id, "--memory", server_memory]
+
+    # Trying to speed things up a bit http://www.adrikodde.nl/blog/2013/tips-debug-slow-vagrant-box/
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", server_cpuexecutioncap]
+    vb.customize ["modifyvm", :id, "--cpus", server_cpus]
 
     # Set the timesync threshold to 10 seconds, instead of the default 20 minutes.
     # If the clock gets more than 15 minutes out of sync (due to your laptop going
