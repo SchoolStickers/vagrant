@@ -10,6 +10,7 @@ Instead, we recommend you use [Vaprobash](https://github.com/fideloper/Vaprobash
 1. Install [VirtualBox](https://www.virtualbox.org/).
 2. Install [Vagrant](http://www.vagrantup.com/).
 3. Install [vagrant-cachier](http://fgrehm.viewdocs.io/vagrant-cachier) plugin by running `vagrant plugin install vagrant-cachier`.
+4. Install [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) plugin by running `vagrant plugin install vagrant-vbguest`.
 
 ## Using in your project
 1. Copy `Vagrantfile` from this repo into the root of your project.
