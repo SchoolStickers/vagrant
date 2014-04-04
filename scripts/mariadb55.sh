@@ -18,6 +18,9 @@ EOF
 # Installing MariaDB
 sudo yum install -y MariaDB-server MariaDB-client
 
+# increase query_cache_size to 32MBs
+sed -i 's/\[mysqld\]/\[mysqld\] \nquery_cache_size=32M/' /etc/my.cnf.d/server.cnf
+
 # Starting MariaDB
 sudo /etc/init.d/mysql start
 
