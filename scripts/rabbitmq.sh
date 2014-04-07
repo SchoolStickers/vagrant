@@ -10,4 +10,4 @@ sudo su -c 'rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.2.1/rab
 # Starting RabbitMQ
 sudo /etc/init.d/rabbitmq-server start
 
-sudo chkconfig rabbitmq-server on
+sudo chkconfig --levels 235 rabbitmq-server on

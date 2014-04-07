@@ -3,6 +3,7 @@
 echo ">>> Installing Nginx"
 
 [[ -z "$1" ]] && { echo "!!! IP address not set. Check the Vagrant file."; exit 1; }
+[[ -z "$2" ]] && { echo "!!! Nginx port not set. Check the Vagrant file."; exit 1; }
 
 # Adding Yum repo
 cat > /etc/yum.repos.d/nginx.repo << EOF
@@ -21,7 +22,7 @@ echo ">>> Configuring Nginx"
 # Configure default vhost (is not escaped)
 cat > /etc/nginx/conf.d/default.conf << EOF
 server {
-    listen 5580;
+    listen $2;
 
     root /vagrant/public_html;
     index index.html index.htm index.php app.php app_dev.php;

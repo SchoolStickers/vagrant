@@ -4,7 +4,7 @@
 # Config Github Settings
 github_username = "SchoolStickers"
 github_repo     = "vagrant"
-github_tag      = "0.5"
+github_tag      = "0.6"
 github_path     = "https://raw.github.com/#{github_username}/#{github_repo}/#{github_tag}/"
 
 # Server Configuration
@@ -16,10 +16,14 @@ github_path     = "https://raw.github.com/#{github_username}/#{github_repo}/#{gi
 #   172.16.0.1  - 172.31.255.254
 #   192.168.0.1 - 192.168.255.254
 server_ip              = "192.168.33.10"
+
 server_memory          = "4096" # MB
 server_timezone        = "UTC"
 server_cpuexecutioncap = "90"
 server_cpus            = 4
+
+nginx_port            = 5580
+varnish_port          = 80
 
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
@@ -79,13 +83,13 @@ Vagrant.configure(2) do |config|
   # config.vm.provision "shell", path: "#{github_path}scripts/rvm.sh", privileged: false
 
   # Provision Nginx
-  config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh", args: server_ip
+  config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh", args: [server_ip, nginx_port]
 
   # Provision MariaDB
   config.vm.provision "shell", path: "#{github_path}scripts/mariadb55.sh"
 
   # Install Varnish
-  config.vm.provision "shell", path: "#{github_path}scripts/varnish.sh"
+  config.vm.provision "shell", path: "#{github_path}scripts/varnish.sh", args: [server_ip, nginx_port, varnish_port]
 
   # Install RabbitMQ
   config.vm.provision "shell", path: "#{github_path}scripts/rabbitmq.sh"
