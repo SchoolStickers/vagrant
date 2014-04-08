@@ -13,7 +13,7 @@ Instead, we recommend you use [Vaprobash](https://github.com/fideloper/Vaprobash
 3. Install [vagrant-cachier](http://fgrehm.viewdocs.io/vagrant-cachier) plugin by running `vagrant plugin install vagrant-cachier`.
 4. Install [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) plugin by running `vagrant plugin install vagrant-vbguest`.
 
-## Using rsync?
+## Using [rsync](http://docs.vagrantup.com/v2/synced-folders/rsync.html)?
 
 As with all things Windows related, this isn't as simple as one might hope. Vagrant 1.5's new Rsync folder syncing does work, but (we ever) there are a few hops to jump though. The following works for me with Vagrant 1.5.1 using git bash/MinGW.
 

@@ -22,13 +22,17 @@ xdebug.var_display_max_children = 256
 xdebug.var_display_max_data = 1024
 EOF
 
-# PHP Error Reporting Config
+# PHP Error Reporting config
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php.ini
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php.ini
 sed -i "s/html_errors = .*/display_errors = On/" /etc/php.ini
 
-# PHP Date Timezone
+# PHP Date Timezone config
 sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php.ini
+
+# User config
+sed -i "s/user = .*/user = vagrant/" /etc/php-fpm.d/www.conf
+sed -i "s/group = .*/group = vagrant/" /etc/php-fpm.d/www.conf
 
 # Starting PHP-FPM
 sudo /etc/init.d/php-fpm start

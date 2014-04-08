@@ -117,6 +117,9 @@ if [ -d $DIRECTORY ]; then
     cp $DIRECTORY/. /etc/nginx/conf.d -R
 fi
 
+# User config
+sed -i "s/user  .*/user  vagrant;/" /etc/nginx/nginx.conf
+
 # Starting Nginx
 sudo /etc/init.d/nginx start
 sudo /etc/init.d/php-fpm restart
