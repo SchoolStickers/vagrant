@@ -22,8 +22,8 @@ server_timezone        = "UTC"
 server_cpuexecutioncap = "90"
 server_cpus            = 4
 
-nginx_port            = 5580
-varnish_port          = 80
+nginx_port            = "5580"
+varnish_port          = "80"
 
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
