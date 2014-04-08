@@ -55,6 +55,7 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
         fastcgi_param HTTPS off;
+        fastcgi_read_timeout 300;
     }
 
     # Deny .htaccess file access
@@ -101,6 +102,7 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
         fastcgi_param HTTPS on;
+        fastcgi_read_timeout 300;
     }
 
     # Deny .htaccess file access
