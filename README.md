@@ -20,6 +20,8 @@ As with all things Windows related, this isn't as simple as one might hope. Vagr
 1. Download [cwRsync](https://www.itefix.no/i2/content/cwrsync-free-edition) to your machine and add its directory to your path. [[Source]](http://www.thomasvjames.com/2013/09/vagrant-aws-rsync-on-windows/)
 2. Edit `C:\HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.5.1\plugins\synced_folders\rsync\helper.rb` and add `hostpath = "/cygdrive" + hostpath` to line 74. [[Source]](https://github.com/mitchellh/vagrant/issues/3230#issuecomment-37757086)
 
+**Don't forget**, if you're using rsync, you need to use the [`vagrant rsync`](http://docs.vagrantup.com/v2/cli/rsync.html) or [`vagrant rsync-auto`](http://docs.vagrantup.com/v2/cli/rsync-auto.html) command to update the files on the VM.
+
 ## Using in your project
 
 1. Copy `Vagrantfile` from this repo into the root of your project.
