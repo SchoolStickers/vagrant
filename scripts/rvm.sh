@@ -7,6 +7,6 @@
 source /home/vagrant/.bash_profile
 source /home/vagrant/.rvm/scripts/rvm
 
-type rvm | head -n 1
+/bin/bash --login
 rvm install 2.1
 rvm use 2.1
