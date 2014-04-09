@@ -84,7 +84,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "#{github_path}scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
 
   # Install RVM
-  config.vm.provision "shell", path: "#{github_path}scripts/rvm.sh", privileged: false, args: ruby_version
+  # config.vm.provision "shell", path: "#{github_path}scripts/rvm.sh", privileged: false, args: ruby_version
 
   # Provision Nginx
   config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh", args: [server_ip, nginx_port]
