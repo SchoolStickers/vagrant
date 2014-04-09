@@ -19,4 +19,4 @@ sudo yum install -y varnish
 # Starting Varnish
 sudo /etc/init.d/varnish start
 
-sudo chkconfig --levels 235 varnish on
+sudo chkconfig varnish on

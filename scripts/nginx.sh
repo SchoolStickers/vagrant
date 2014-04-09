@@ -126,4 +126,4 @@ sed -i "s/user  .*/user  vagrant;/" /etc/nginx/nginx.conf
 sudo /etc/init.d/nginx start
 sudo /etc/init.d/php-fpm restart
 
-sudo chkconfig --levels 235 nginx on
+sudo chkconfig nginx on

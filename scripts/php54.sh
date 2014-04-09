@@ -37,4 +37,4 @@ sed -i "s/group = .*/group = vagrant/" /etc/php-fpm.d/www.conf
 # Starting PHP-FPM
 sudo /etc/init.d/php-fpm start
 
-sudo chkconfig --levels 235 php-fpm on
+sudo chkconfig php-fpm on
