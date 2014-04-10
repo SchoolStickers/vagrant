@@ -4,7 +4,7 @@
 # Config Github Settings
 github_username = "SchoolStickers"
 github_repo     = "vagrant"
-github_tag      = "0.8"
+github_tag      = "0.9"
 github_path     = "https://raw.github.com/#{github_username}/#{github_repo}/#{github_tag}/"
 
 # Server Configuration
@@ -30,7 +30,7 @@ nodejs_packages       = [          # List any global NodeJS packages that you wa
 #  "phantomjs",
 ]
 
-ruby_version          = "2.1"
+ruby_version          = "2.1.1"
 
 # Lets do this
 Vagrant.configure(2) do |config|
@@ -83,8 +83,8 @@ Vagrant.configure(2) do |config|
   # Install Nodejs
   config.vm.provision "shell", path: "#{github_path}scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
 
-  # Install RVM
-  # config.vm.provision "shell", path: "#{github_path}scripts/rvm.sh", privileged: false, args: ruby_version
+  # Install rbenv
+  config.vm.provision "shell", path: "#{github_path}scripts/rbenv.sh", privileged: false, args: ruby_version
 
   # Provision Nginx
   config.vm.provision "shell", path: "#{github_path}scripts/nginx.sh", args: [server_ip, nginx_port]
