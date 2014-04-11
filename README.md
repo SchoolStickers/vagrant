@@ -51,7 +51,21 @@ As with all things Windows related, this isn't as simple as one might hope. Vagr
 
 ## Todo
 
-* Allow config of the above settings via the `Vagrantfile`.
 * Install MailCatcher.
-* Provide the ability to set-up multiple vhosts.
-* Fix RVM (RVM installs fine, and downloads Ruby 2.1, but doesn't `use` 2.1)
+
+## Xdebug and fixing the Unidentified Network issue
+
+If you wish to use Xdebug with your own IDE, you might encounter an issue where the IDE isn't able to see the connection from the server. I won't pretend to understand the exact cause of this, rather I'll just say it's related to the Windows firewall rejecting the connection because it's from an Unidentified Network (as shown below).
+
+![](http://i.imgur.com/QZi0W4B.png)
+
+![](http://i.imgur.com/0xLBfVb.png)
+
+Thankfully, fixing the issue is easy, simply follow these instructions ([borrowed from the internet](http://www.brokenwire.net/bw/Various/120/fix-virtualbox-causes-unidentified-network-on-vista-and-windows-7)):
+
+1. Open regedit.
+2. Navigate to `HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002BE10318}`
+3. Browse through the subkeys (named 0000, 0001, etc) until you find any subkeys containing the virtualbox network adapter. You're looking for ones where the “DriverDesc” key has “VirtualBox Host-Only Ethernet Adapter” as a value.
+4. Add a new DWORD (32) value with a name of `*NdisDeviceType` (don't forget the *), and set it's value to `1`.
+ * ![](http://i.imgur.com/O5Ur12p.png)
+6. Disable/re-enable all the network adaptors you've just edited (or simply reboot)
