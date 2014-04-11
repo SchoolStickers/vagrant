@@ -5,10 +5,12 @@
 echo ">>> Installing PHP 5.4"
 
 sudo rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm
-sudo yum install -y php54w php54w-common php54w-mysqlnd php54w-fpm php54w-pecl-xdebug php54w-xml php54w-pecl-apc php54w-pecl-memcache
+sudo yum install -y php54w php54w-common php54w-devel php54w-mysqlnd php54w-fpm php54w-gd php54w-pear php54w-pecl-xdebug php54w-xml php54w-pecl-apc
 
-# xdebug Config
-cat >> $(find /etc/php.d -name xdebug.ini) << EOF
+# xdebug Config if not present already
+if grep -q "[XDEBUG]" /etc/php.d/xdebug.ini; then
+	cat >> /etc/php.d/xdebug.ini << EOF
+[XDEBUG]
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1
 xdebug.remote_port = 9000
@@ -21,6 +23,7 @@ xdebug.var_display_max_depth = 5
 xdebug.var_display_max_children = 256
 xdebug.var_display_max_data = 1024
 EOF
+fi
 
 # PHP Error Reporting config
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php.ini

@@ -4,7 +4,7 @@
 # Config Github Settings
 github_username = "SchoolStickers"
 github_repo     = "vagrant"
-github_tag      = "0.9"
+github_tag      = "0.10"
 github_path     = "https://raw.github.com/#{github_username}/#{github_repo}/#{github_tag}/"
 
 # Server Configuration
@@ -26,9 +26,7 @@ nginx_port            = "5580"
 varnish_port          = "80"
 
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
-nodejs_packages       = [          # List any global NodeJS packages that you want to install
-#  "phantomjs",
-]
+nodejs_packages       = []         # List any global NodeJS packages that you want to install
 
 ruby_version          = "2.1.1"
 
@@ -91,16 +89,25 @@ Vagrant.configure(2) do |config|
 
   # Provision MariaDB
   config.vm.provision "shell", path: "#{github_path}scripts/mariadb55.sh"
-
+  
+  # Install AMQP
+  config.vm.provision "shell", path: "#{github_path}scripts/amqp.sh"
+  
+  # Install RabbitMQ
+  config.vm.provision "shell", path: "#{github_path}scripts/rabbitmq.sh"
+  
+  # Install Supervisord
+  config.vm.provision "shell", path: "#{github_path}scripts/supervisord.sh"
+  
+  # Install Phantomjs
+  config.vm.provision "shell", path: "#{github_path}scripts/phantomjs.sh"
+  
   # Install Varnish
   config.vm.provision "shell", path: "#{github_path}scripts/varnish.sh", args: [server_ip, nginx_port, varnish_port]
 
-  # Install RabbitMQ
-  config.vm.provision "shell", path: "#{github_path}scripts/rabbitmq.sh"
-
-  # Install Memcached
-  config.vm.provision "shell", path: "#{github_path}scripts/memcached.sh"
-
+  # Install fonts
+  config.vm.provision "shell", path: "#{github_path}scripts/fonts.sh"
+  
   # Finalise install
   config.vm.provision "shell", path: "#{github_path}scripts/finalise.sh", privileged: false
 
