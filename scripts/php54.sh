@@ -44,9 +44,9 @@ sed -i "s/pm.max_children = .*/pm.max_children = 32/" /etc/php-fpm.d/www.conf
 sed -i "s/pm.start_servers = .*/;pm.start_servers = 5/" /etc/php-fpm.d/www.conf
 sed -i "s/pm.min_spare_servers = .*/;pm.min_spare_servers = 5/" /etc/php-fpm.d/www.conf
 sed -i "s/pm.max_spare_servers = .*/;pm.max_spare_servers = 35/" /etc/php-fpm.d/www.conf
-sed -i "s/;env[TMP] = \/tmp\/env[TMP] = \/tmp/" /etc/php-fpm.d/www.conf
-sed -i "s/;env[TMPDIR] = \/tmp\/env[TMPDIR] = \/tmp/" /etc/php-fpm.d/www.conf
-sed -i "s/;env[TEMP] = \/tmp\/env[TEMP] = \/tmp/" /etc/php-fpm.d/www.conf
+sed -i "s^;env[TMP] = /tmp^env[TMP] = /tmp^" /etc/php-fpm.d/www.conf
+sed -i "s^;env[TMPDIR] = /tmp^env[TMPDIR] = /tmp^" /etc/php-fpm.d/www.conf
+sed -i "s^;env[TEMP] = /tmp^env[TEMP] = /tmp^" /etc/php-fpm.d/www.conf
 sed -i "s/;php_admin_value[memory_limit] = .*/php_admin_value[memory_limit] = 512M/" /etc/php-fpm.d/www.conf
 
 # Starting PHP-FPM
