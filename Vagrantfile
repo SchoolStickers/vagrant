@@ -93,6 +93,9 @@ Vagrant.configure(2) do |config|
   # Install AMQP
   config.vm.provision "shell", path: "#{github_path}scripts/amqp.sh"
   
+  # Install APC
+  config.vm.provision "shell", path: "#{github_path}scripts/apc.sh"
+  
   # Install RabbitMQ
   config.vm.provision "shell", path: "#{github_path}scripts/rabbitmq.sh"
   
