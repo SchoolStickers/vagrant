@@ -30,3 +30,10 @@ sudo mkdir -p "$SSL_DIR"
 sudo openssl genrsa -out "$SSL_DIR/xip.io.key" 1024
 sudo openssl req -new -subj "$(echo -n "$SUBJ" | tr "\n" "/")" -key "$SSL_DIR/xip.io.key" -out "$SSL_DIR/xip.io.csr" -passin pass:$PASSPHRASE
 sudo openssl x509 -req -days 365 -in "$SSL_DIR/xip.io.csr" -signkey "$SSL_DIR/xip.io.key" -out "$SSL_DIR/xip.io.crt"
+
+# Update hosts file
+if ! grep "schoolstickers.local" -L /etc/hosts >/dev/null; then
+	cat >> /etc/hosts << EOF
+127.0.0.1	schoolstickers.local schoolstickers.com www.schoolstickers.local www.schoolstickers.com
+EOF
+fi
