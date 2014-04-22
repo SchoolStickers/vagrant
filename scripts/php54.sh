@@ -5,7 +5,7 @@
 echo ">>> Installing PHP 5.4"
 
 sudo rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm
-sudo yum install -y php54w php54w-common php54w-devel php54w-mysqlnd php54w-fpm php54w-gd php54w-pear php54w-pecl-xdebug php54w-xml php54w-mcrypt
+sudo yum install -y php54w php54w-common php54w-devel php54w-mysqlnd php54w-fpm php54w-gd php54w-pear php54w-pecl-xdebug php54w-xml php54w-mcrypt php54w-mbstring
 
 # xdebug Config if not present already
 if ! grep "XDEBUG" -L /etc/php.d/xdebug.ini >/dev/null; then
