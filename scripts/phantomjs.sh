@@ -21,7 +21,7 @@ autorestart = true
 logfile = /vagrant/schoolstickers.com/public_html/var/customtool/queue/log/phantom_worker.log
 log_stdout = true
 log_stderr = true
-user = nginx
+user = vagrant
 EOF
 	fi
 
