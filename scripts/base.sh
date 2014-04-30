@@ -31,9 +31,21 @@ sudo openssl genrsa -out "$SSL_DIR/xip.io.key" 1024
 sudo openssl req -new -subj "$(echo -n "$SUBJ" | tr "\n" "/")" -key "$SSL_DIR/xip.io.key" -out "$SSL_DIR/xip.io.csr" -passin pass:$PASSPHRASE
 sudo openssl x509 -req -days 365 -in "$SSL_DIR/xip.io.csr" -signkey "$SSL_DIR/xip.io.key" -out "$SSL_DIR/xip.io.crt"
 
-# Update hosts file
-if ! grep "schoolstickers.local" -L /etc/hosts >/dev/null; then
-	cat >> /etc/hosts << EOF
-127.0.0.1	schoolstickers.local schoolstickers.com www.schoolstickers.local www.schoolstickers.com
-EOF
+# Copy hosts from files dir if it exists
+if [ -f /vagrant/files/hosts ]; then
+	echo " * Copying hosts file"
+	cp -f /vagrant/files/hosts /etc/hosts
+fi
+
+# Copy limits from files dir if it exists
+if [ -f /vagrant/files/security/limits.conf ]; then
+	echo " * Copying limits file"
+	cp -f /vagrant/files/security/limits.conf /etc/security/limits.conf
+fi
+
+# Copy limits from files dir if it exists
+if [ -f /vagrant/files/sysctl.conf ]; then
+	echo " * Copying sysctl file"
+	cp -f /vagrant/files/sysctl.conf /etc/sysctl.conf
+	sysctl -p
 fi

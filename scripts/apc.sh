@@ -3,6 +3,8 @@
 echo ">>> Installing & configuring APC"
 yum install -y php54w-pecl-apc
 
-# Modify shm_size to cope with Magento
-sed -i "s/apc.shm_size=.*/apc.shm_size=512M/" /etc/php.d/apc.ini
-sed -i "s/apc.enable_cli=.*/apc.enable_cli=1/" /etc/php.d/apc.ini
+# Copy apc.ini from files dir if it exists
+if [ -f /vagrant/files/php.d/apc.ini ]; then
+	echo " * Copying APC config file"
+	cp -f /vagrant/files/php.d/apc.ini /etc/php.d/apc.ini
+fi

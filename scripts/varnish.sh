@@ -21,6 +21,5 @@ if [ -f /vagrant/files/default.vcl ]; then
 fi
 
 # Starting Varnish
-sudo /etc/init.d/varnish start
-
+sudo /etc/init.d/varnish restart
 sudo chkconfig varnish on

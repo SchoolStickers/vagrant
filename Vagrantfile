@@ -4,7 +4,7 @@
 # Config Github Settings
 github_username = "SchoolStickers"
 github_repo     = "vagrant"
-github_tag      = "0.10"
+github_tag      = "0.11"
 github_path     = "https://raw.github.com/#{github_username}/#{github_repo}/#{github_tag}/"
 
 # Server Configuration
@@ -22,8 +22,8 @@ server_timezone        = "UTC"
 server_cpuexecutioncap = "90"
 server_cpus            = 4
 
-nginx_port            = "5580"
-varnish_port          = "80"
+nginx_port            = "80"
+varnish_port          = "5580"
 
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = []         # List any global NodeJS packages that you want to install
@@ -92,7 +92,7 @@ Vagrant.configure(2) do |config|
   
   # Install AMQP
   config.vm.provision "shell", path: "#{github_path}scripts/amqp.sh"
-  
+
   # Install APC
   config.vm.provision "shell", path: "#{github_path}scripts/apc.sh"
   

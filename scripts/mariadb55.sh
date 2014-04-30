@@ -18,17 +18,45 @@ EOF
 # Installing MariaDB
 sudo yum install -y MariaDB-server MariaDB-client
 
-# increase query_cache_size to 32MBs
-sed -i 's/\[mysqld\]/\[mysqld\] \nquery_cache_size=32M/' /etc/my.cnf.d/server.cnf
+# Copy mysql-clients.cnf from files dir if it exists
+if [ -f /vagrant/files/my.cnf.d/mysql-clients.cnf ]; then
+	echo " * Copying MySQL config files"
+	cp -f /vagrant/files/my.cnf.d/mysql-clients.cnf /etc/my.cnf.d/mysql-clients.cnf
+fi
 
 # Starting MariaDB
-sudo /etc/init.d/mysql start
+sudo /etc/init.d/mysql restart
 
-sudo chkconfig --levels 235 mysql on
+sudo chkconfig mysql on
 
-# Import your sql-dump, if one exists
-FILE="/vagrant/import.sql"
-if [ -f $FILE ]; then
+# Import sql files that have not been flagged as imported
+# To reimport a db file remove the .ran
+if [ -d "/vagrant/db" ]; then
+	for d in "/vagrant/db"; do
+		for f in $d/*; do
+			cd $f
+			if ! mysql -uroot ${PWD##*/} >/dev/null 2>&1 </dev/null; then
+			  echo " * Creating new database ${PWD##*/}"
+			  mysql -uroot -e "CREATE DATABASE \`${PWD##*/}\` CHARACTER SET utf8 COLLATE utf8_general_ci;"
+			fi
+			for s in $f/*.sql; do	
+				if [ ! -f $s.ran ]; then
+					echo " * Importing DB data from" $s
+					mysql -uroot ${PWD##*/} < $s;
+					touch $s.ran
+				else
+					echo " * $s has already been imported."
+				fi
+			done
+		done
+	done
+fi
+
+
+
+
+
+if [ -f /vagrant/import.sql ]; then
 	echo ">>> Importing your database"
     mysql -u root < $FILE
 fi

@@ -17,113 +17,20 @@ EOF
 # Installing Nginx
 sudo yum install -y nginx
 
-echo ">>> Configuring Nginx"
-
-# Configure default vhost (is not escaped)
-cat > /etc/nginx/conf.d/default.conf << EOF
-server {
-    listen $2;
-
-    root /vagrant/public_html;
-    index index.html index.htm index.php app.php app_dev.php;
-
-    # Make site accessible
-    server_name $1.xip.io;
-
-    access_log /vagrant/log/access.log;
-    error_log  /vagrant/log/error.log error;
-
-    charset utf-8;
-
-    location / {
-        try_files \$uri \$uri/ /app.php?\$query_string /index.php?\$query_string;
-    }
-
-    location = /favicon.ico { log_not_found off; access_log off; }
-    location = /robots.txt  { access_log off; log_not_found off; }
-
-    error_page 404 /index.php;
-
-    # pass the PHP scripts to php5-fpm
-    # Note: \.php$ is susceptible to file upload attacks
-    # Consider using: "location ~ ^/(index|app|app_dev|config)\.php(/|$) {"
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        # With php5-fpm:
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-        fastcgi_param HTTPS off;
-        fastcgi_read_timeout 300;
-    }
-
-    # Deny .htaccess file access
-    location ~ /\.ht {
-        deny all;
-    }
-}
-
-server {
-    listen 443;
-
-    ssl on;
-    ssl_certificate     /etc/ssl/xip.io/xip.io.crt;
-    ssl_certificate_key /etc/ssl/xip.io/xip.io.key;
-
-    root /vagrant/public_html;
-    index index.html index.htm index.php app.php app_dev.php;
-
-    # Make site accessible
-    server_name $1.xip.io;
-
-    access_log /vagrant/log/access.log;
-    error_log  /vagrant/log/error.log error;
-
-    charset utf-8;
-
-    location / {
-        try_files \$uri \$uri/ /app.php?\$query_string /index.php?\$query_string;
-    }
-
-    location = /favicon.ico { log_not_found off; access_log off; }
-    location = /robots.txt  { access_log off; log_not_found off; }
-
-    error_page 404 /index.php;
-
-    # pass the PHP scripts to php5-fpm
-    # Note: \.php$ is susceptible to file upload attacks
-    # Consider using: "location ~ ^/(index|app|app_dev|config)\.php(/|$) {"
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        # With php5-fpm:
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-        fastcgi_param HTTPS on;
-        fastcgi_read_timeout 300;
-    }
-
-    # Deny .htaccess file access
-    location ~ /\.ht {
-        deny all;
-    }
-}
-EOF
-
-# check for additional vhosts
-DIRECTORY="/vagrant/vhosts"
-if [ -d $DIRECTORY ]; then
-	echo ">>> Importing your vhosts"
-    cp $DIRECTORY/. /etc/nginx/conf.d -R
+# Copy nginx configs
+if [ -f /vagrant/files/nginx/nginx.conf ]; then
+	echo " * Copying Nginx config file"
+    cp -f /vagrant/files/nginx/nginx.conf /etc/nginx/nginx.conf
 fi
 
-# User config
-sed -i "s/user  .*/user  vagrant;/" /etc/nginx/nginx.conf
+# Copy nginx host configs
+if [ -d /vagrant/files/nginx/conf.d ]; then
+	echo " * Copying Nginx host config files"
+    cp -rf /vagrant/files/nginx/conf.d/* /etc/nginx/conf.d
+fi
 
 # Starting Nginx
-sudo /etc/init.d/nginx start
+sudo /etc/init.d/nginx restart
 sudo /etc/init.d/php-fpm restart
 
 sudo chkconfig nginx on
