@@ -51,12 +51,3 @@ if [ -d "/vagrant/db" ]; then
 		done
 	done
 fi
-
-
-
-
-
-if [ -f /vagrant/import.sql ]; then
-	echo ">>> Importing your database"
-    mysql -u root < $FILE
-fi
